@@ -10,6 +10,18 @@ setopt HIST_IGNORE_SPACE
 bindkey -v
 export KEYTIMEOUT=1
 
+# --- Key correction ---
+# Fix delete key
+bindkey "^[[3~" delete-char
+
+# Fix Ctrl+P / Ctrl+N for history navigation
+bindkey "^P" up-history
+bindkey "^N" down-history
+
+# Fix Home/End keys
+bindkey "^[[1~" beginning-of-line
+bindkey "^[[4~" end-of-line
+
 # --- Completion ---
 autoload -Uz compinit
 compinit
@@ -35,10 +47,15 @@ alias dot='git --git-dir=/home/dm/.dotfiles --work-tree=/home/dm'
 # --- Path ---
 export EDITOR='nvim'
 export VISUAL='nvim'
-export PATH=$PATH:/home/dm/.cargo/bin
+export PATH=$PATH:/home/dm/.cargo/bin:/home/dm/go/bin
 
 # --- Starship prompt ---
 eval "$(starship init zsh)"
 
 #--- Alias ---
 alias vi="nvim"
+
+# --- startup ---
+if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+  tmux attach-session -t default || tmux new-session -s default
+fi
