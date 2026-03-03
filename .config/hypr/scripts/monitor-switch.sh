@@ -29,6 +29,6 @@ elif [ "$INTERNAL_ACTIVE" = "no" ] && [ "$EXTERNAL_ACTIVE" = "yes" ]; then
     notify-send "Monitor" "Internal only ($INTERNAL)"
 else
     # Internal only → both on
-    hyprctl keyword monitor "$EXTERNAL,3840x2160@120.00Hz,auto,1.60"
+    hyprctl keyword monitor "$EXTERNAL,3840x2160@90.00Hz,auto,1.60"
     notify-send "Monitor" "Both monitors"
 fi
